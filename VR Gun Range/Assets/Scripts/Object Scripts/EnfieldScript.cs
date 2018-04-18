@@ -27,6 +27,9 @@ public class EnfieldScript : PVR_InteractionController {
     {
         base.Update();
 
+        Vector3 lineOrigin = muzzleSight.transform.position;
+        Debug.DrawRay(lineOrigin, muzzleSight.transform.forward * range, Color.green);
+
         timer += Time.deltaTime;
         
         if(objectBeingInteractedWith.name == "Enfield")
