@@ -2,64 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnfieldScript : PVR_InteractionController {
-
-    public float range = 100;
-    public AudioClip shotClips;
+public class EnfieldScript : PVR_InteractionController
+{
     public GameObject muzzleSight;
+    public AudioClip shotclips;
 
-    private float timer;
-    private AudioSource audioSource;
-    
+    private Shoot shootScript;
+    private int pointValue = 100;
+
     public override void Awake()
     {
         base.Awake();
-
-        SetupSound();
+        shootScript = GetComponent<Shoot>();
     }
 
-    public override void FixedUpdate()
+    public override void Start()
     {
-        base.FixedUpdate();
+        base.Start();
+
+        shootScript.SetupSound(shotclips);
     }
 
     public override void Update()
     {
-        base.Update();
-
         Vector3 lineOrigin = muzzleSight.transform.position;
-        Debug.DrawRay(lineOrigin, muzzleSight.transform.forward * range, Color.green);
+        Debug.DrawRay(lineOrigin, muzzleSight.transform.forward * shootScript.range, Color.green);
 
-        timer += Time.deltaTime;
-        
-        if(objectBeingInteractedWith.name == "Enfield")
+        if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Trigger) && shootScript.timer >= shootScript.shootingDelay)
         {
-            Debug.Log("You made it in");
-            if(Controller.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
-            {
-                Debug.Log("You should be shooting now");
-                Shoot();
-            }
+            Debug.Log("You shot the Enfield");
+            shootScript.ShootGun(muzzleSight, pointValue);
         }
-    }
-
-    private void Shoot()
-    {
-        timer = 0;
-        Vector3 lineOrigin = muzzleSight.transform.position;
-        RaycastHit hit = new RaycastHit();
-        audioSource.Play();
-
-        if (Physics.Raycast(lineOrigin, muzzleSight.transform.forward, out hit, range))
-        {
-            print("hit " + hit.collider.gameObject);
-        }
-    }
-
-    private void SetupSound()
-    {
-        audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.volume = 0.2f;
-        audioSource.clip = shotClips;
     }
 }

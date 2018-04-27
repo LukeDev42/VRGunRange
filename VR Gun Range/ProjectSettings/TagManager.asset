@@ -6,6 +6,9 @@ TagManager:
   tags:
   - ControllerModel
   - InteractionObject
+  - ScoreController
+  - Controller
+  - Gun
   layers:
   - Default
   - TransparentFX

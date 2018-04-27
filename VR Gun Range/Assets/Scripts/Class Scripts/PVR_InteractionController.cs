@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class PVR_InteractionController : MonoBehaviour {
 
-    public Transform snapColliderOrigin;
-    [HideInInspector]
+    public GameObject snapColliderOrigin;
     public GameObject controllerModel;
     [HideInInspector]
     public Vector3 velocity;
@@ -32,10 +31,15 @@ public class PVR_InteractionController : MonoBehaviour {
         controllerModel = GameObject.FindGameObjectWithTag("ControllerModel");
     }
 
+    public virtual void Start()
+    {
 
+    }
 
     public virtual void Update()
     {
+        
+
         if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Grip))
         {
             CheckForInteractionObject();
@@ -47,7 +51,7 @@ public class PVR_InteractionController : MonoBehaviour {
             {
                 if (objectBeingInteractedWith)
                 {
-                    objectBeingInteractedWith.OnGripIsBeingPressed(this);
+                    objectBeingInteractedWith.OnGripWasPressed(this);
                 }
             }
         }
@@ -64,8 +68,8 @@ public class PVR_InteractionController : MonoBehaviour {
 
     public void CheckForInteractionObject()
     {
-        Collider[] overlappedColliders = Physics.OverlapSphere(snapColliderOrigin.position,
-            snapColliderOrigin.lossyScale.x / 2f);
+        Collider[] overlappedColliders = Physics.OverlapSphere(snapColliderOrigin.transform.position,
+            snapColliderOrigin.transform.lossyScale.x / 2f);
 
         foreach(Collider overlappedCollider in overlappedColliders)
         {
@@ -93,10 +97,12 @@ public class PVR_InteractionController : MonoBehaviour {
     public void HideControllerModel()
     {
         controllerModel.SetActive(false);
+        snapColliderOrigin.SetActive(false);
     }
 
     public void ShowControllerModel()
     {
+        snapColliderOrigin.SetActive(true);
         controllerModel.SetActive(true);
     }
 
