@@ -6,15 +6,18 @@ public class Shoot : PVR_InteractionController {
 
     public float range = 100;
     public ScoreController scoreController;
+    public AKReload akReload;
 
-    [HideInInspector]
-    public float shootingDelay = 0.1f;
     [HideInInspector]
     public float timer;
     [HideInInspector]
     public bool gunSoundAllowed;
     [HideInInspector]
     public AudioSource audioSource;
+    [HideInInspector]
+    public bool bulletsReady;
+    [HideInInspector]
+    public bool akMagReady;
     
     private AKScript akScript;
     private EnfieldScript enfieldScript;
@@ -29,6 +32,7 @@ public class Shoot : PVR_InteractionController {
         akScript = GetComponent<AKScript>();
         enfieldScript.enabled = false;
         akScript.enabled = false;
+        akMagReady = false;
     }
 
     public override void Update()
@@ -54,11 +58,9 @@ public class Shoot : PVR_InteractionController {
         {
             akScript.enabled = false;
         }
-
-        Debug.Log(objectBeingInteractedWith.name);
     }
 
-    public void ShootGun(GameObject raycastBegin, int points)
+    public void ShootGun(GameObject raycastBegin, int points, float shootingDelay)
     {
         timer = 0;
         Vector3 lineOrigin = raycastBegin.transform.position;
@@ -70,19 +72,20 @@ public class Shoot : PVR_InteractionController {
         {
             print("hit " + hit.collider.gameObject);
         }
-        if(hit.collider.gameObject.name == "KnightCollider")
+        if(hit.collider.gameObject.CompareTag("Target"))
         {
             scoreController.AddScore(points);
         }
     }
 
-    public void PlayGunSound()
+    public void PlayGunSound(float shootingDelay)
     {
         if (gunSoundAllowed && timer >= shootingDelay)
         {
             audioSource.Play();
             Debug.Log("Sound should be happening");
         }
+        gunSoundAllowed = false;
     }
 
     public void SetupSound(AudioClip shotClips)

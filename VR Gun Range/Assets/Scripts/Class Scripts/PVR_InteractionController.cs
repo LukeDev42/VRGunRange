@@ -5,6 +5,7 @@ using UnityEngine;
 public class PVR_InteractionController : MonoBehaviour {
 
     public GameObject snapColliderOrigin;
+
     public GameObject controllerModel;
     [HideInInspector]
     public Vector3 velocity;
@@ -33,7 +34,7 @@ public class PVR_InteractionController : MonoBehaviour {
 
     public virtual void Start()
     {
-
+        objectBeingInteractedWith = GameObject.Find("ObjectBeingInteractedWith").GetComponent<PVR_InteractionObject>();
     }
 
     public virtual void Update()
@@ -42,7 +43,7 @@ public class PVR_InteractionController : MonoBehaviour {
 
         if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Grip))
         {
-            CheckForInteractionObject();
+            CheckForInteractionObject();           
         }
 
         if(Controller.GetPress(SteamVR_Controller.ButtonMask.Grip))
@@ -64,6 +65,13 @@ public class PVR_InteractionController : MonoBehaviour {
                 objectBeingInteractedWith = null;
             }
         }
+
+        if (objectBeingInteractedWith == null)
+        {
+            objectBeingInteractedWith = GameObject.Find("ObjectBeingInteractedWith").GetComponent<PVR_InteractionObject>();
+        }
+
+        Debug.Log(objectBeingInteractedWith);
     }
 
     public void CheckForInteractionObject()

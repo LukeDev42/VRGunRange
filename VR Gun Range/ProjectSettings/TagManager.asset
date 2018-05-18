@@ -9,6 +9,7 @@ TagManager:
   - ScoreController
   - Controller
   - Gun
+  - Target
   layers:
   - Default
   - TransparentFX

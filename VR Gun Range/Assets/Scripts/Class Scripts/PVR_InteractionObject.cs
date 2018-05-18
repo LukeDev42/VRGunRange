@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PVR_InteractionObject : MonoBehaviour {
 
-    protected Transform cachedTransform;
+    public Transform cachedTransform;
     [HideInInspector]
     public PVR_InteractionController currentController;
 

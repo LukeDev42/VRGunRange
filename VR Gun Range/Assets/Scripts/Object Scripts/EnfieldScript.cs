@@ -7,6 +7,7 @@ public class EnfieldScript : PVR_InteractionController
     public GameObject muzzleSight;
     public AudioClip shotclips;
 
+    private float shootingDelay = 1;
     private Shoot shootScript;
     private int pointValue = 100;
 
@@ -28,10 +29,10 @@ public class EnfieldScript : PVR_InteractionController
         Vector3 lineOrigin = muzzleSight.transform.position;
         Debug.DrawRay(lineOrigin, muzzleSight.transform.forward * shootScript.range, Color.green);
 
-        if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Trigger) && shootScript.timer >= shootScript.shootingDelay)
+        if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Trigger) && shootScript.timer >= shootingDelay)
         {
-            Debug.Log("You shot the Enfield");
-            shootScript.ShootGun(muzzleSight, pointValue);
+            shootScript.gunSoundAllowed = true;
+            shootScript.ShootGun(muzzleSight, pointValue, shootingDelay);
         }
     }
 }

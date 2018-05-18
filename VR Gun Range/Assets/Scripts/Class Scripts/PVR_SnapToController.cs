@@ -6,8 +6,8 @@ public class PVR_SnapToController : PVR_InteractionObject {
     
     public Vector3 snapPositionOffset;
     public Vector3 snapRotationOffset;
+    public bool hideControllerModel = true;
 
-    private bool hideControllerModel = true;
     private Rigidbody rb;
 
     public override void Awake()
@@ -35,7 +35,6 @@ public class PVR_SnapToController : PVR_InteractionObject {
         {
             controller.ShowControllerModel();
         }
-
         ReleaseFromController(controller);
     }
 
@@ -50,6 +49,9 @@ public class PVR_SnapToController : PVR_InteractionObject {
 
         rb.useGravity = false;
         rb.isKinematic = true;
+
+        GetComponentInChildren<Rigidbody>().useGravity = false;
+        GetComponentInChildren<Rigidbody>().isKinematic = true;
     }
 
     private void ReleaseFromController(PVR_InteractionController controller)
@@ -58,6 +60,10 @@ public class PVR_SnapToController : PVR_InteractionObject {
 
         rb.useGravity = true;
         rb.isKinematic = false;
+
+        GetComponentInChildren<Rigidbody>().useGravity = true;
+        GetComponentInChildren<Rigidbody>().isKinematic = false;
+
 
         rb.velocity = controller.velocity;
         rb.angularVelocity = controller.angularVelocity;

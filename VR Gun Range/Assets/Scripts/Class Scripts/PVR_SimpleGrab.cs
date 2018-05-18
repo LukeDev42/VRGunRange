@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class PVR_SimpleGrab : PVR_InteractionObject
 {
-
     public bool hideControllerModelOnGrab;
+    
     private Rigidbody rb;
+    private bool gripWasPressed;
 
     public override void Awake()
     {
         base.Awake();
         rb = GetComponent<Rigidbody>();
+        gripWasPressed = false;
     }
 
     public override void OnGripWasPressed(PVR_InteractionController controller)
@@ -22,8 +24,8 @@ public class PVR_SimpleGrab : PVR_InteractionObject
         {
             controller.HideControllerModel();
         }
+            AddFixedJointToController(controller);
 
-        AddFixedJointToController(controller);
     }
 
     public override void OnGripWasReleased(PVR_InteractionController controller)
@@ -34,9 +36,6 @@ public class PVR_SimpleGrab : PVR_InteractionObject
         {
             controller.ShowControllerModel();
         }
-
-        rb.velocity = controller.velocity;
-        rb.angularVelocity = controller.angularVelocity;
 
         RemoveFixedJointFromController(controller);
     }
@@ -57,5 +56,7 @@ public class PVR_SimpleGrab : PVR_InteractionObject
             fx.connectedBody = null;
             Destroy(fx);
         }
+
+        //rb.velocity = controller.velocity; rb.angularVelocity = controller.angularVelocity;
     }
 }
