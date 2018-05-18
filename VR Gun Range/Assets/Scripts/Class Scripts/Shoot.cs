@@ -6,7 +6,6 @@ public class Shoot : PVR_InteractionController {
 
     public float range = 100;
     public ScoreController scoreController;
-    public AKReload akReload;
 
     [HideInInspector]
     public float timer;
