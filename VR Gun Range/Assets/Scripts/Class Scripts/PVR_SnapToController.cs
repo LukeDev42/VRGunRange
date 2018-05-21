@@ -6,7 +6,7 @@ public class PVR_SnapToController : PVR_InteractionObject {
     
     public Vector3 snapPositionOffset;
     public Vector3 snapRotationOffset;
-    public bool hideControllerModel = true;
+    public bool hideControllerModel;
 
     private Rigidbody rb;
 

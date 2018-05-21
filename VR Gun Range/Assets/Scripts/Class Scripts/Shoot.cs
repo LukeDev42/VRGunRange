@@ -20,7 +20,7 @@ public class Shoot : PVR_InteractionController {
     
     private AKScript akScript;
     private EnfieldScript enfieldScript;
-    
+    private PistolScript pistolScript;   
 
     public override void Awake()
     {
@@ -29,6 +29,7 @@ public class Shoot : PVR_InteractionController {
         scoreController = GameObject.Find("ScoreController").GetComponent<ScoreController>();
         enfieldScript = GetComponent<EnfieldScript>();
         akScript = GetComponent<AKScript>();
+        pistolScript = GetComponent<PistolScript>();
         enfieldScript.enabled = false;
         akScript.enabled = false;
         akMagReady = false;
@@ -56,6 +57,14 @@ public class Shoot : PVR_InteractionController {
         else if(objectBeingInteractedWith.name != "AK-47")
         {
             akScript.enabled = false;
+        }
+        if (objectBeingInteractedWith.name == "1911")
+        {
+            pistolScript.enabled = true;
+        }
+        else if(objectBeingInteractedWith.name != "1911")
+        {
+            pistolScript.enabled = false;
         }
     }
 

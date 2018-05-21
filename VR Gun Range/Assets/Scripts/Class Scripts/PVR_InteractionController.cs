@@ -5,8 +5,8 @@ using UnityEngine;
 public class PVR_InteractionController : MonoBehaviour {
 
     public GameObject snapColliderOrigin;
-
     public GameObject controllerModel;
+
     [HideInInspector]
     public Vector3 velocity;
     [HideInInspector]
@@ -29,7 +29,6 @@ public class PVR_InteractionController : MonoBehaviour {
     public virtual void Awake()
     {
         trackedObj = GetComponent<SteamVR_TrackedObject>();
-        controllerModel = GameObject.FindGameObjectWithTag("ControllerModel");
     }
 
     public virtual void Start()
@@ -105,12 +104,10 @@ public class PVR_InteractionController : MonoBehaviour {
     public void HideControllerModel()
     {
         controllerModel.SetActive(false);
-        snapColliderOrigin.SetActive(false);
     }
 
     public void ShowControllerModel()
     {
-        snapColliderOrigin.SetActive(true);
         controllerModel.SetActive(true);
     }
 
