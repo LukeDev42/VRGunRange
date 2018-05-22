@@ -68,7 +68,7 @@ public class Shoot : PVR_InteractionController {
         }
     }
 
-    public void ShootGun(GameObject raycastBegin, int points, float shootingDelay)
+    public void ShootGun(GameObject raycastBegin, double points, float shootingDelay)
     {
         timer = 0;
         Vector3 lineOrigin = raycastBegin.transform.position;
@@ -80,9 +80,20 @@ public class Shoot : PVR_InteractionController {
         {
             print("hit " + hit.collider.gameObject);
         }
-        if(hit.collider.gameObject.CompareTag("Target"))
+        if (hit.collider.gameObject.CompareTag("Target"))
         {
-            scoreController.AddScore(points);
+            if (hit.collider.gameObject.name == "KnightCollider")
+            {
+                scoreController.AddScore(points);
+            }
+            if(hit.collider.gameObject.name == "KnightColliderHigh")
+            {
+                scoreController.AddScore(points * 2);
+            }
+            if(hit.collider.gameObject.name == "KnightColliderFar")
+            {
+                scoreController.AddScore(points * 5);
+            }
         }
     }
 

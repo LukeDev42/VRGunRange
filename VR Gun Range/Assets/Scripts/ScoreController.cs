@@ -8,8 +8,8 @@ public class ScoreController : MonoBehaviour {
     public Text scoreText;
     public Text bulletCountText;
 
-    private int score;
-    private int bulletCount;
+    private double score;
+    private double bulletCount;
     private Shoot shootScript;
 
     private void Start()
@@ -20,13 +20,13 @@ public class ScoreController : MonoBehaviour {
         AddToBulletCount(0);
     }
 
-    public void AddScore(int additionalScore)
+    public void AddScore(double additionalScore)
     {
         score += additionalScore;
         scoreText.text = "Score: " + score;
     }
 
-    public void AddToBulletCount(int additionalBullet)
+    public void AddToBulletCount(double additionalBullet)
     {
         bulletCount += additionalBullet;
         bulletCountText.text = "Bullet Count: " + bulletCount;
