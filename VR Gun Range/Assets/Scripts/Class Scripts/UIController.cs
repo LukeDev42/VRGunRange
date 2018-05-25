@@ -19,6 +19,7 @@ public class UIController : MonoBehaviour {
         quit.onClick.AddListener(QuitClicked);
         back.onClick.AddListener(BackClicked);
 
+        back.gameObject.SetActive(false);
         controllerExplination.enabled = false;
     }
 
